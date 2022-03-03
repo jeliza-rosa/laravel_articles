@@ -14,6 +14,5 @@
                         <p>{{ $article->description }}</p>
                     </article>
                 @endforeach
-
             </div>
 @endsection

@@ -40,11 +40,12 @@
         <div class="col-md-8">
             <h3 class="pb-4 mb-4 fst-italic border-bottom">
                 {{ $code->name }}
+                <a href="/articles/{{ $code->code }}/edit">Изменить</a>
             </h3>
 
             <p class="blog-post-meta">{{ $code->created_at->toFormattedDateString() }}</p>
 
-            <p>{{ $code->detail }}</p>
+            <p>{{ $code->description }}</p>
 
             <a href="/">Назад к статьям</a>
 

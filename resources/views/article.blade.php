@@ -32,7 +32,7 @@
                 <input type="checkbox" class="form-check-input" id="inputPublished" name="published" {{ old('published') ? 'checked' : '' }}>
                 <label for="inputPublished" class="form-check-label">опубликовано</label>
             </div>
-            <button type="submit" class="btn btn-primary">Отправить обращение</button>
+            <button type="submit" class="btn btn-primary">Создать статью</button>
         </form>
     </div>
 @endsection

@@ -22,3 +22,7 @@ Route::get('/articles/create', 'App\Http\Controllers\ArticlesController@article'
 Route::post('/articles/create', 'App\Http\Controllers\ArticlesController@articlePost');
 Route::get('/articles/{code}', 'App\Http\Controllers\ArticlesController@articleGet');
 
+Route::get('/articles/{code}/edit', 'App\Http\Controllers\ArticlesController@edit');
+Route::patch('/articles/{code}', 'App\Http\Controllers\ArticlesController@update');
+Route::delete('/articles/{code}', 'App\Http\Controllers\ArticlesController@destroy');
+

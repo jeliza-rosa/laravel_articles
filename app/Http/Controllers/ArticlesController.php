@@ -3,28 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\FormRequest;
 
 class ArticlesController extends Controller
 {
     public function articlePost()
     {
-
-        $this->validate(request(), [
-            'code' => 'required|regex:/^[A-Za-z0-9_-]+$/|unique:articles',
-            'name' => 'required|min:5|max:100',
-            'description' =>'required|max:255',
-            'detail' => 'required',
-        ]);
-
-        $arr = request()->all();
-
-        if (request('published')) {
-            $arr['published'] = true;
-        } else {
-            $arr['published'] = false;
-        };
-
-        Article::create($arr);
+        Article::create(FormRequest::validation());
 
         return redirect('/articles/create');
     }
@@ -44,5 +29,24 @@ class ArticlesController extends Controller
     public function articleGet(Article $code)
     {
         return view('show', compact('code'));
+    }
+
+    public function edit(Article $code)
+    {
+        return view('edit', compact('code'));
+    }
+
+    public function update(Article $code)
+    {
+        $code->update(FormRequest::validation($code));
+
+        return redirect('/');
+    }
+
+    public function destroy(Article $code)
+    {
+        $code->delete();
+
+        return redirect('/');
     }
 }
