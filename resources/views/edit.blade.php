@@ -1,20 +1,3 @@
-{{--@extends('layout.master')--}}
-
-{{--@section('content')--}}
-{{--    <div class="pb-4 mb-4 fst-italic border-bottom">--}}
-{{--        <h3 class="pb-4 mb-4 fst-italic border-bottom">--}}
-{{--            Изменить статью--}}
-{{--        </h3>--}}
-
-{{--        @include('layout.errors')--}}
-
-{{--        <form method="POST" action="/articles/{{ $article->code }}">--}}
-{{--            @csrf--}}
-{{--            @method('PATCH')--}}
-{{--        </form>--}}
-{{--    </div>--}}
-
-
 @extends('layout.master')
 
 @section('content')
