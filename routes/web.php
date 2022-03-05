@@ -24,6 +24,8 @@ Route::delete('/articles/{article}', 'App\Http\Controllers\ArticlesController@de
 
 Route::resource('/articles', 'App\Http\Controllers\ArticlesController');
 
+Route::get('/articles/tags/{tag}', 'App\Http\Controllers\TagsController@index');
+
 Route::get('/contacts', 'App\Http\Controllers\MessagesController@message');
 Route::post('/contacts', 'App\Http\Controllers\MessagesController@messagePost');
 Route::get('/admin/feedback', 'App\Http\Controllers\MessagesController@messageGetAll');
