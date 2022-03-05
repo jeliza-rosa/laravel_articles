@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $code->name }}</title>
+    <title>{{ $article->name }}</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/blog/">
 
@@ -39,13 +39,15 @@
     <div class="row g-5">
         <div class="col-md-8">
             <h3 class="pb-4 mb-4 fst-italic border-bottom">
-                {{ $code->name }}
-                <a href="/articles/{{ $code->code }}/edit">Изменить</a>
+                {{ $article->name }}
+                <a href="/articles/{{ $article->code }}/edit">Изменить</a>
             </h3>
 
-            <p class="blog-post-meta">{{ $code->created_at->toFormattedDateString() }}</p>
+            <p class="blog-post-meta">{{ $article->created_at->toFormattedDateString() }}</p>
 
-            <p>{{ $code->description }}</p>
+            <p style="font-size: 12px">{{ $article->description }}</p>
+
+            <p>{{ $article->detail }}</p>
 
             <a href="/">Назад к статьям</a>
 
