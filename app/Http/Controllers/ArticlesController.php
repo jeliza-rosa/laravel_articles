@@ -7,45 +7,45 @@ use App\Models\FormRequest;
 
 class ArticlesController extends Controller
 {
-    public function articlePost()
+    public function store()
     {
         Article::create(FormRequest::validation());
 
         return redirect('/articles/create');
     }
 
-    public function article()
+    public function create()
     {
         return view('article');
     }
 
-    public function main()
+    public function index()
     {
         $articles = Article::latest()->get();
 
         return view('welcome', compact('articles'));
     }
 
-    public function articleGet(Article $code)
+    public function show(Article $article)
     {
-        return view('show', compact('code'));
+        return view('show', compact('article'));
     }
 
-    public function edit(Article $code)
+    public function edit(Article $article)
     {
-        return view('edit', compact('code'));
+        return view('edit', compact('article'));
     }
 
-    public function update(Article $code)
+    public function update(Article $article)
     {
-        $code->update(FormRequest::validation($code));
+        $article->update(FormRequest::validation(collect($article)->get('code')));
 
         return redirect('/');
     }
 
-    public function destroy(Article $code)
+    public function destroy(Article $article)
     {
-        $code->delete();
+        $article->delete();
 
         return redirect('/');
     }
