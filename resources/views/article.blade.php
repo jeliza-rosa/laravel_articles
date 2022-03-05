@@ -8,7 +8,7 @@
 
         @include('layout.errors')
 
-        <form method="POST" action="/articles/create">
+        <form method="POST" action="/articles">
 
             @csrf
 

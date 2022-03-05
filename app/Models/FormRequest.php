@@ -8,7 +8,7 @@ class FormRequest extends Model
     {
         $validateUnique = '';
 
-        if (collect($code)->get('code') !== request()->get('code')) {
+        if ($code !== request()->get('code')) {
             $validateUnique = '|unique:articles';
         }
 
