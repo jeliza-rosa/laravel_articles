@@ -3,46 +3,50 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\FormRequest;
 
 class ArticlesController extends Controller
 {
-    public function articlePost()
+    public function store()
     {
-
-        $this->validate(request(), [
-            'code' => 'required|regex:/^[A-Za-z0-9_-]+$/|unique:articles',
-            'name' => 'required|min:5|max:100',
-            'description' =>'required|max:255',
-            'detail' => 'required',
-        ]);
-
-        $arr = request()->all();
-
-        if (request('published')) {
-            $arr['published'] = true;
-        } else {
-            $arr['published'] = false;
-        };
-
-        Article::create($arr);
+        Article::create(FormRequest::validation());
 
         return redirect('/articles/create');
     }
 
-    public function article()
+    public function create()
     {
         return view('article');
     }
 
-    public function main()
+    public function index()
     {
         $articles = Article::latest()->get();
 
         return view('welcome', compact('articles'));
     }
 
-    public function articleGet(Article $code)
+    public function show(Article $article)
     {
-        return view('show', compact('code'));
+        return view('show', compact('article'));
+    }
+
+    public function edit(Article $article)
+    {
+        return view('edit', compact('article'));
+    }
+
+    public function update(Article $article)
+    {
+        $article->update(FormRequest::validation(collect($article)->get('code')));
+
+        return redirect('/');
+    }
+
+    public function destroy(Article $article)
+    {
+        $article->delete();
+
+        return redirect('/');
     }
 }
