@@ -43,6 +43,8 @@
                 <a href="/articles/{{ $article->code }}/edit">Изменить</a>
             </h3>
 
+            @include('tags', ['tags' => $article->tags])
+
             <p class="blog-post-meta">{{ $article->created_at->toFormattedDateString() }}</p>
 
             <p style="font-size: 12px">{{ $article->description }}</p>

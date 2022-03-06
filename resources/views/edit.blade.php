@@ -6,6 +6,8 @@
             Изменить статью
         </h3>
 
+        @include('tags', ['tags' => $article->tags])
+
         @include('layout.errors')
 
         <form method="POST" action="/articles/{{ $article->code }}">
@@ -39,9 +41,8 @@
             </div>
 
             <div class="mb-3 form-check">
-{{--                {{ old('tags', $code->tags->pluck('name')->implode(',')) }}--}}
                 <label for="inputTags" class="form-label">Теги</label>
-                <input type="text" class="form-control" id="inputTags" name="tags" value="">
+                <input type="text" class="form-control" id="inputTags" name="tags" value="{{ old('tags', $article->tags->pluck('name')->implode(',')) }}">
             </div>
 
             <button onclick="return alert('Статья изменена')" type="submit" class="btn btn-primary">Изменить статью</button>
@@ -52,7 +53,7 @@
             @csrf
             @method('DELETE')
 
-            <button onclick="return alert('Статья удалена')" type="submit" class="btn btn-primary">Удалить</button>
+            <button onclick="return alert('Статья удалена')" type="submit" class="btn btn-danger">Удалить</button>
 
         </form>
     </div>

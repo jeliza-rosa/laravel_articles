@@ -4,12 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\FormRequest;
+use App\Models\Tag;
+use App\Services\TagsSynchronizer;
+use Illuminate\Support\Collection;
 
 class ArticlesController extends Controller
 {
+    public function index()
+    {
+        $articles = Article::with('tags')->latest()->get();
+
+        return view('welcome', compact('articles'));
+    }
+
     public function store()
     {
-        Article::create(FormRequest::validation());
+        $article = Article::create(FormRequest::validation());
+
+        $articleTags = $article->tags->keyBy('name');
+
+        TagsSynchronizer::sync($articleTags, $article);
 
         return redirect('/articles/create');
     }
@@ -17,13 +31,6 @@ class ArticlesController extends Controller
     public function create()
     {
         return view('article');
-    }
-
-    public function index()
-    {
-        $articles = Article::latest()->get();
-
-        return view('welcome', compact('articles'));
     }
 
     public function show(Article $article)
@@ -39,6 +46,10 @@ class ArticlesController extends Controller
     public function update(Article $article)
     {
         $article->update(FormRequest::validation(collect($article)->get('code')));
+
+        $articleTags = $article->tags->keyBy('name');
+
+        TagsSynchronizer::sync($articleTags, $article);
 
         return redirect('/');
     }
