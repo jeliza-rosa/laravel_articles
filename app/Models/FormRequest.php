@@ -25,6 +25,8 @@ class FormRequest extends Model
             $attributes['published'] = false;
         };
 
+        $attributes['owner_id'] = auth()->id();
+
         return $attributes;
     }
 }

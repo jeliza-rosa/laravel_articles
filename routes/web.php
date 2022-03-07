@@ -32,5 +32,3 @@ Route::get('/admin/feedback', 'App\Http\Controllers\MessagesController@messageGe
 
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

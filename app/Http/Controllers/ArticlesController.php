@@ -10,9 +10,15 @@ use Illuminate\Support\Collection;
 
 class ArticlesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:update,article')->except(['index','store', 'create']);
+    }
+
     public function index()
     {
-        $articles = Article::with('tags')->latest()->get();
+        $articles = auth()->user()->articles()->with('tags')->latest()->get();
 
         return view('welcome', compact('articles'));
     }
@@ -40,6 +46,7 @@ class ArticlesController extends Controller
 
     public function edit(Article $article)
     {
+        $this->authorize('update', $article);
         return view('edit', compact('article'));
     }
 

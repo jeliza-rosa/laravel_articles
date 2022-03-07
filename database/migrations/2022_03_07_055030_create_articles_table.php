@@ -15,12 +15,15 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('owner_id');
             $table->char('code');
             $table->text('name');
             $table->text('description');
             $table->text('detail');
             $table->boolean('published');
             $table->timestamps();
+
+            $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
