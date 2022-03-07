@@ -30,3 +30,7 @@ Route::get('/contacts', 'App\Http\Controllers\MessagesController@message');
 Route::post('/contacts', 'App\Http\Controllers\MessagesController@messagePost');
 Route::get('/admin/feedback', 'App\Http\Controllers\MessagesController@messageGetAll');
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
