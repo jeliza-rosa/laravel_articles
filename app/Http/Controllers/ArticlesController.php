@@ -32,6 +32,8 @@ class ArticlesController extends Controller
 
         $article->owner->notify(new ArticleCreate($article, __FUNCTION__));
 
+        flash('Статья успешно создана');
+
         return redirect('/articles/create');
     }
 
@@ -62,6 +64,8 @@ class ArticlesController extends Controller
 
         $article->owner->notify(new ArticleCreate($article, __FUNCTION__));
 
+        flash('Статья успешно обновлена');
+
         return redirect('/');
     }
 
@@ -70,6 +74,8 @@ class ArticlesController extends Controller
         $article->delete();
 
         $article->owner->notify(new ArticleCreate($article, __FUNCTION__));
+
+        flash('Статья удалена');
 
         return redirect('/');
     }

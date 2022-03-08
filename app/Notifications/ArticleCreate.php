@@ -45,30 +45,13 @@ class ArticleCreate extends Notification
     public function toMail($notifiable)
     {
         $message = new MailMessage;
-//        if ($this->action == 'store') {
-//            return $message
-//            ->line('Создана статья:')
-//            ->line($this->article->name)
-//            ->action('Перейти к статье', url('/articles/' . $this->article->code));
-//        } elseif ($this->action == 'update') {
-//            return $message
-//                ->line('Статья изменена:')
-//                ->line($this->article->name)
-//                ->action('Перейти к статье', url('/articles/' . $this->article->code));
-//        } elseif ($this->action == 'destroy') {
-//            return $message
-//                ->line('Статья удалена:')
-//                ->line($this->article->name);
-//        }
 
-        if ($this->action == 'store') {
-            $textAction = 'Создана статья:';
-            $textBtn = 'Перейти к статье';
-            $link = '/articles/' . $this->article->code;
-        } elseif ($this->action == 'update') {
+        $textAction = 'Создана статья:';
+        $textBtn = 'Перейти к статье';
+        $link = '/articles/' . $this->article->code;
+
+        if ($this->action == 'update') {
             $textAction = 'Статья изменена:';
-            $textBtn = 'Перейти к статье';
-            $link = '/articles/' . $this->article->code;
         } elseif ($this->action == 'destroy') {
             $textAction = 'Статья удалена:';
             $textBtn = 'Перейти на сайт';
