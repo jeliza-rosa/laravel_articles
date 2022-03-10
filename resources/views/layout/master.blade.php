@@ -37,6 +37,9 @@
 
     <main role="main" class="container">
         <div class="row g-5">
+
+            @include('layout.flash_massage')
+
             @yield('content')
 
             @section('sidebar')

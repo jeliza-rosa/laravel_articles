@@ -9,6 +9,7 @@
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.2",
         "laravel/sanctum": "^2.14.1",
+        "laravel/telescope": "^4.7",
         "laravel/tinker": "^2.7"
     },
     "require-dev": {
@@ -25,7 +26,8 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": ["app/helpers.php"]
     },
     "autoload-dev": {
         "psr-4": {

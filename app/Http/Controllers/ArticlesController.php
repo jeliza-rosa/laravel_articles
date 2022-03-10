@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\FormRequest;
-use App\Models\Tag;
 use App\Services\TagsSynchronizer;
-use Illuminate\Support\Collection;
+use App\Notifications\ArticleCreate;
 
 class ArticlesController extends Controller
 {
@@ -31,6 +30,10 @@ class ArticlesController extends Controller
 
         TagsSynchronizer::sync($articleTags, $article);
 
+        $article->owner->notify(new ArticleCreate($article, __FUNCTION__));
+
+        flash('Статья успешно создана');
+
         return redirect('/articles/create');
     }
 
@@ -47,6 +50,7 @@ class ArticlesController extends Controller
     public function edit(Article $article)
     {
         $this->authorize('update', $article);
+
         return view('edit', compact('article'));
     }
 
@@ -58,12 +62,20 @@ class ArticlesController extends Controller
 
         TagsSynchronizer::sync($articleTags, $article);
 
+        $article->owner->notify(new ArticleCreate($article, __FUNCTION__));
+
+        flash('Статья успешно обновлена');
+
         return redirect('/');
     }
 
     public function destroy(Article $article)
     {
         $article->delete();
+
+        $article->owner->notify(new ArticleCreate($article, __FUNCTION__));
+
+        flash('Статья удалена');
 
         return redirect('/');
     }
