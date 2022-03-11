@@ -47,7 +47,12 @@
             <a class="p-2 link-secondary" href="/about">О нас</a>
             <a class="p-2 link-secondary" href="/contacts">Контакты</a>
             <a class="p-2 link-secondary" href="/articles/create">Создать статью</a>
-            <a class="p-2 link-secondary" href="/admin/feedback">Админ отдел</a>
+
+            @isset(auth()->user()->name)
+                @admin(auth()->user()->name)
+                    <a class="p-2 link-secondary" href="/admin/allarticles">Админ отдел</a>
+                @endadmin
+            @endisset
         </nav>
     </div>
 </div>

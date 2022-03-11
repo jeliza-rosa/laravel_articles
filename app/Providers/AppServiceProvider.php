@@ -29,5 +29,17 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Blade::component('components.alert', 'alert');
+
+        Blade::directive('admin', function ($name) {
+            return "<?php if ($name == 'admin') { ?>";
+        });
+
+        Blade::directive('elseadmin', function () {
+            return '<?php } else { ?>';
+        });
+
+        Blade::directive('endadmin', function () {
+            return '<?php } ?>';
+        });
     }
 }

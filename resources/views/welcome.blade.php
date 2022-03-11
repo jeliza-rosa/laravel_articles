@@ -9,6 +9,5 @@
         @foreach($articles as $article)
             @include('item')
         @endforeach
-
     </div>
 @endsection
