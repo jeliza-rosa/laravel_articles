@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,5 +27,7 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('layout.sidebar', function ($view) {
             $view->with('tagsCloud', \App\Models\Tag::tagsCloud());
         });
+
+        Blade::component('components.alert', 'alert');
     }
 }

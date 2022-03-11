@@ -1,5 +1,5 @@
 @if (session()->has('message'))
-    <div class="alert alert-success mt-5">
+    @component('components.alert', ['type' => session('message_type')])
         {{ session('message') }}
-    </div>
+    @endcomponent
 @endif

@@ -12,6 +12,10 @@ Route::get('/about', function () {
     return view('about');
 });
 
+Route::get('/demo', function () {
+    return view('demo');
+});
+
 Route::get('/', 'App\Http\Controllers\ArticlesController@index');
 
 Route::get('/articles/create', 'App\Http\Controllers\ArticlesController@create');
