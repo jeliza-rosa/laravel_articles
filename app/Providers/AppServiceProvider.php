@@ -30,8 +30,8 @@ class AppServiceProvider extends ServiceProvider
 
         Blade::component('components.alert', 'alert');
 
-        Blade::directive('admin', function ($name) {
-            return "<?php if ($name == 'admin') { ?>";
+        Blade::directive('admin', function ($email) {
+            return "<?php if ($email == config('admin.admin_email')) { ?>";
         });
 
         Blade::directive('elseadmin', function () {
