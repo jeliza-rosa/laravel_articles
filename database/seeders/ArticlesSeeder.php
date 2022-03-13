@@ -15,6 +15,5 @@ class ArticlesSeeder extends Seeder
     public function run()
     {
         \App\Models\Article::factory(20)->create();
-//        \App\Models\Article::factory(20)->hasTags(3)->create();
     }
 }

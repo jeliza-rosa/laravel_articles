@@ -17,14 +17,3 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
-
-Artisan::command('test', function () {
-    /** @var $this \Illuminate\Console\Command */
-    $subject = $this->ask('Тема');
-
-    Artisan::call('app:say_hello', [
-        'users' => [1, 2],
-        '--subject' => $subject,
-        '--class' => true
-    ]);
-});
