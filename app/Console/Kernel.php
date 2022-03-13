@@ -15,7 +15,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        if (app()->environment() == 'local') {
+            return;
+        }
+
+        $schedule->command('app:say_hello', [
+           '--subject' => 'Привет из комнад по времени'
+        ])->everyMinute();
     }
 
     /**
