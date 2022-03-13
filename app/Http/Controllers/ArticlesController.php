@@ -17,7 +17,11 @@ class ArticlesController extends Controller
 
     public function index()
     {
-        $articles = auth()->user()->articles()->with('tags')->latest()->get();
+        if(auth()->user()->email == config('admin.admin_email')) {
+            $articles = Article::with('tags')->where('published', 1)->latest()->get();
+        } else {
+            $articles = auth()->user()->articles()->with('tags')->where('published', 1)->latest()->get();
+        }
 
         return view('welcome', compact('articles'));
     }

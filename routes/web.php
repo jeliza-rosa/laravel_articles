@@ -4,12 +4,12 @@ use Illuminate\Support\Facades\Route;
 
 error_reporting(E_ALL);
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/about', function () {
     return view('about');
+});
+
+Route::get('/demo', function () {
+    return view('demo');
 });
 
 Route::get('/', 'App\Http\Controllers\ArticlesController@index');
@@ -29,6 +29,6 @@ Route::get('/articles/tags/{tag}', 'App\Http\Controllers\TagsController@index');
 Route::get('/contacts', 'App\Http\Controllers\MessagesController@message');
 Route::post('/contacts', 'App\Http\Controllers\MessagesController@messagePost');
 Route::get('/admin/feedback', 'App\Http\Controllers\MessagesController@messageGetAll');
-
+Route::get('/admin/allarticles', 'App\Http\Controllers\AdminController@admin');
 
 Auth::routes();
