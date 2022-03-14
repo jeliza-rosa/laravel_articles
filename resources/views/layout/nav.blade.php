@@ -48,8 +48,8 @@
             <a class="p-2 link-secondary" href="/contacts">Контакты</a>
             <a class="p-2 link-secondary" href="/articles/create">Создать статью</a>
 
-            @isset(auth()->user()->name)
-                @admin(auth()->user()->name)
+            @isset(auth()->user()->email)
+                @admin(auth()->user()->email)
                     <a class="p-2 link-secondary" href="/admin/allarticles">Админ отдел</a>
                 @endadmin
             @endisset

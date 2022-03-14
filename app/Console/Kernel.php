@@ -15,13 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        if (app()->environment() == 'local') {
-            return;
-        }
 
-        $schedule->command('app:say_hello', [
-           '--subject' => 'Привет из комнад по времени'
-        ])->everyMinute();
     }
 
     /**
@@ -32,7 +26,6 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         $this->load(__DIR__.'/Commands');
-
         require base_path('routes/console.php');
     }
 }

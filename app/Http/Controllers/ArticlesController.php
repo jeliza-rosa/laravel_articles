@@ -17,7 +17,7 @@ class ArticlesController extends Controller
 
     public function index()
     {
-        if(auth()->user()->name == 'admin') {
+        if(auth()->user()->email == config('admin.admin_email')) {
             $articles = Article::with('tags')->where('published', 1)->latest()->get();
         } else {
             $articles = auth()->user()->articles()->with('tags')->where('published', 1)->latest()->get();
