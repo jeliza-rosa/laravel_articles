@@ -15,7 +15,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-
+        $schedule->command('notifications:new_articles')
+            ->mondays()
+            ->at('10:00');
     }
 
     /**
