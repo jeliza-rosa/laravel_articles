@@ -41,8 +41,7 @@ class NewArticlesWeek extends Notification
     {
         return (new MailMessage)
             ->subject('Новые статьи за последнюю неделю')
-            ->line('Добрый день, ' . $notifiable->name . '.')
-            ->view('mail.new-article', ['articles' => $this->articles, 'period' => $this->period]);
+            ->view('mail.new-article', ['notifiable' => $notifiable, 'articles' => $this->articles, 'period' => $this->period]);
     }
 
     /**
