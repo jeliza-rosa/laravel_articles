@@ -3,6 +3,9 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Models\Article;
+use App\Models\User;
+use App\Notifications\NewArticlesWeek as NewArticlesWeekNotification;
 
 class NewArticlesWeek extends Command
 {
@@ -37,12 +40,14 @@ class NewArticlesWeek extends Command
      */
     public function handle()
     {
-        $date = strtotime('-7 days') ;
+        $periodDays = 7;
 
-        $users = \App\Models\User::all();
+        $date = strtotime('-' . $periodDays . ' days') ;
 
-        $articles = \App\Models\Article::all()->where('created_at', '>', date('Y-m-d H:i:s', $date));
+        $users = User::all();
 
-        $users->map->notify(new \App\Notifications\NewArticlesWeek($articles));
+        $articles = Article::all()->where('created_at', '>', date('Y-m-d H:i:s', $date));
+
+        $users->map->notify(new NewArticlesWeekNotification($articles, $periodDays));
     }
 }

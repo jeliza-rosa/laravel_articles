@@ -12,10 +12,12 @@ class NewArticlesWeek extends Notification
     use Queueable;
 
     protected $articles;
+    protected $period;
 
-    public function __construct($articles)
+    public function __construct($articles, $period)
     {
         $this->articles = $articles;
+        $this->period = $period;
     }
 
     /**
@@ -39,7 +41,8 @@ class NewArticlesWeek extends Notification
     {
         return (new MailMessage)
             ->subject('Новые статьи за последнюю неделю')
-            ->line('Добрый день, ' . $notifiable->name . '! Мы составили список статей, созданных за последнюю неделю.');
+            ->line('Добрый день, ' . $notifiable->name . '.')
+            ->view('mail.new-article', ['articles' => $this->articles, 'period' => $this->period]);
     }
 
     /**
