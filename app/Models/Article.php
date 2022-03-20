@@ -8,6 +8,8 @@ class Article extends Model
 {
     use HasFactory;
 
+    public $guarded = [];
+
     public function getRouteKeyName()
     {
         return 'code';
