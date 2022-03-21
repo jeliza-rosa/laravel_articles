@@ -12,7 +12,7 @@ class ArticlesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-//        $this->middleware('can:update,article')->except(['index','store', 'create']);
+        $this->middleware('can:update,article')->except(['index','store', 'create', 'show', 'edit', 'update']);
     }
 
     public function index()
@@ -36,6 +36,8 @@ class ArticlesController extends Controller
 
         $article->owner->notify(new ArticleCreate($article, __FUNCTION__));
 
+        push_all('Создана новая статья');
+
         flash('Статья успешно создана');
 
         return redirect('/articles/create');
@@ -53,7 +55,9 @@ class ArticlesController extends Controller
 
     public function edit(Article $article)
     {
-        $this->authorize('update', $article);
+        if(!(auth()->user()->email == config('admin.admin_email'))) {
+            $this->authorize('update', $article);
+        }
 
         return view('edit', compact('article'));
     }
