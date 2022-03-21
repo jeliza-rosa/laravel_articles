@@ -2,8 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+
 class Article extends Model
 {
+    use HasApiTokens, HasFactory, Notifiable;
+
+    public $guarded = [];
+
     public function getRouteKeyName()
     {
         return 'code';
