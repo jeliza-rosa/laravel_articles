@@ -34,7 +34,7 @@ class ArticlesController extends Controller
 
         TagsSynchronizer::sync($articleTags, $article);
 
-//        $article->owner->notify(new ArticleCreate($article, __FUNCTION__));
+        $article->owner->notify(new ArticleCreate($article, __FUNCTION__));
 
         flash('Статья успешно создана');
 
@@ -66,7 +66,7 @@ class ArticlesController extends Controller
 
         TagsSynchronizer::sync($articleTags, $article);
 
-//        $article->owner->notify(new ArticleCreate($article, __FUNCTION__));
+        $article->owner->notify(new ArticleCreate($article, __FUNCTION__));
 
         flash('Статья успешно обновлена');
 
@@ -77,7 +77,7 @@ class ArticlesController extends Controller
     {
         $article->delete();
 
-//        $article->owner->notify(new ArticleCreate($article, __FUNCTION__));
+        $article->owner->notify(new ArticleCreate($article, __FUNCTION__));
 
         flash('Статья удалена');
 

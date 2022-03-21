@@ -31,8 +31,8 @@
                         <td>{{ $message->created_at }}</td>
                     </tr>
                 @endforeach
-            @endisset
         </table>
+        @endisset
 
         @isset($articles)
             @foreach($articles as $article)
