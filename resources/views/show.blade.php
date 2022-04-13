@@ -51,6 +51,42 @@
 
             <p>{{ $article->detail }}</p>
 
+            <hr>
+
+            <h4>Комментарии к статье</h4>
+
+            @if($article->comment->toArray())
+                <table>
+                    <tr>
+                        <th style="width: 300px">Дата комментария</th>
+                        <th style="width: 300px">Автор комментария</th>
+                        <th style="width: 300px">Текст комментария</th>
+                    </tr>
+                    @foreach($article->comment as $item)
+                        <tr>
+                            <td>{{ $item->created_at }}</td>
+                            <td>{{ $item->email }}</td>
+                            <td>{{ $item->pivot->text_comment }}</td>
+                        </tr>
+                    @endforeach
+                </table>
+            @else
+                <p>Нет комментариев</p>
+            @endif
+            <hr>
+
+            <form method="POST" action="/articles/{{ $article->code }}/comment">
+
+                @csrf
+
+                <div class="mb-3">
+                    <label for="inputComment" class="form-label">Оставить комменатрий к статье</label>
+                    <input type="text" class="form-control" id="inputComment" placeholder="Введите Ваш комментарий" name="comment" value="{{ old('comment') }}">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Оставить комментарий</button>
+            </form>
+
             <a href="/">Назад к статьям</a>
 
         </div>

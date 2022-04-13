@@ -8,6 +8,16 @@ Route::get('/about', function () {
     return view('about');
 });
 
+Route::get('/test', function () {
+    $articles = DB::table('users')
+        ->join('articles', 'users.id', '=', 'article.owner_id')
+        ->join('companies', 'users.id', '=', 'companies.owner_id')
+        ->select('user.id', 'users.email', 'article.code', 'companies.name')
+        ->get();
+
+    dump($articles);
+});
+
 Route::get('/demo', function () {
     return view('demo');
 });
@@ -31,8 +41,6 @@ Route::post('/contacts', 'App\Http\Controllers\MessagesController@messagePost');
 Route::get('/admin/feedback', 'App\Http\Controllers\MessagesController@messageGetAll');
 Route::get('/admin/allarticles', 'App\Http\Controllers\AdminController@admin');
 
-Auth::routes();
+Route::post('/articles/{article}/comment', 'App\Http\Controllers\CommentsController@store');
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

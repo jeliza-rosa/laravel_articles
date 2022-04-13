@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Arr;
 
 class Article extends Model
 {
@@ -26,4 +27,24 @@ class Article extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function comment()
+    {
+        return $this->belongsToMany(User::class, 'comments')
+            ->withPivot(['text_comment']);
+    }
+
+//    public function comment()
+//    {
+//        return $this->belongsToMany(\App\Models\User::class, 'comments');
+//    }
+//
+//    protected static function boot()
+//    {
+//        parent::boot();
+//
+//        static::updating(function (Article $article) {
+//            $article->comment()->attach(auth()->id());
+//        });
+//    }
 }
