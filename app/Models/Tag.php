@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 class Tag extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
 
     public $guarded = [];
 
