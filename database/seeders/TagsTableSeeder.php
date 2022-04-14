@@ -14,9 +14,9 @@ class TagsTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Tag::factory(18)->make()->each(function ($tag) {
+        \App\Models\Tag::factory(25)->make()->each(function ($tag) {
             $tag->save();
-            $tag->articles()->attach(\App\Models\Article::inRandomOrder()->first(), ['tag_id' => rand(1, $tag->id)]);
+            $tag->articles()->attach(\App\Models\Article::inRandomOrder()->first(), ['tag_id' => $tag->id]);
             $tag->save();
         });
     }

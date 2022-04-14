@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\NewList;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Article;
 
-class ArticlesSeeder extends Seeder
+class NewsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +15,6 @@ class ArticlesSeeder extends Seeder
      */
     public function run()
     {
-        Article::factory(20)->create();
+        NewList::factory()->count(30)->create();
     }
 }

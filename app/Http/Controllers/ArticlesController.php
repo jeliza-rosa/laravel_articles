@@ -12,15 +12,15 @@ class ArticlesController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-//        $this->middleware('can:update,article')->except(['index','store', 'create']);
+        $this->middleware('can:update,article')->except(['index','store', 'create', 'show', 'edit', 'update']);
     }
 
     public function index()
     {
         if(auth()->user()->email == config('admin.admin_email')) {
-            $articles = Article::with('tags')->where('published', 1)->latest()->get();
+            $articles = Article::with('tags')->where('published', 1)->latest()->simplePaginate(20);
         } else {
-            $articles = auth()->user()->articles()->with('tags')->where('published', 1)->latest()->get();
+            $articles = auth()->user()->articles()->with('tags')->where('published', 1)->latest()->simplePaginate(10);
         }
 
         return view('welcome', compact('articles'));
@@ -34,7 +34,9 @@ class ArticlesController extends Controller
 
         TagsSynchronizer::sync($articleTags, $article);
 
-//        $article->owner->notify(new ArticleCreate($article, __FUNCTION__));
+        $article->owner->notify(new ArticleCreate($article, __FUNCTION__));
+
+        push_all('Создана новая статья');
 
         flash('Статья успешно создана');
 
@@ -53,7 +55,9 @@ class ArticlesController extends Controller
 
     public function edit(Article $article)
     {
-        $this->authorize('update', $article);
+        if(!(auth()->user()->email == config('admin.admin_email'))) {
+            $this->authorize('update', $article);
+        }
 
         return view('edit', compact('article'));
     }
@@ -66,7 +70,7 @@ class ArticlesController extends Controller
 
         TagsSynchronizer::sync($articleTags, $article);
 
-//        $article->owner->notify(new ArticleCreate($article, __FUNCTION__));
+        $article->owner->notify(new ArticleCreate($article, __FUNCTION__));
 
         flash('Статья успешно обновлена');
 
@@ -77,7 +81,7 @@ class ArticlesController extends Controller
     {
         $article->delete();
 
-//        $article->owner->notify(new ArticleCreate($article, __FUNCTION__));
+        $article->owner->notify(new ArticleCreate($article, __FUNCTION__));
 
         flash('Статья удалена');
 

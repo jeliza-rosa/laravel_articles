@@ -5,11 +5,11 @@ namespace Tests\Unit;
 use App\Models\Article;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use PHPUnit\Framework\TestCase;
+//use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class UsersTest extends TestCase
 {
-
     use RefreshDatabase;
 
     public function testAUserCanHaveTasks()
@@ -18,8 +18,8 @@ class UsersTest extends TestCase
 
         $attributes = Article::factory()->raw(['owner_id' => $user]);
 
-        $user->tasks()->create($attributes);
+        $user->articles()->create($attributes);
 
-        $this->assertEquals($attributes['title'], $user->tasks->first()->title);
+        $this->assertEquals($attributes['name'], $user->articles->first()->name);
     }
 }
