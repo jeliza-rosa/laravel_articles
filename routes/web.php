@@ -44,3 +44,7 @@ Auth::routes();
 
 Route::get('/news', 'App\Http\Controllers\NewsController@index');
 Route::get('/news/{new}', 'App\Http\Controllers\NewsController@show');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
