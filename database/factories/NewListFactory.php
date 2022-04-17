@@ -9,7 +9,7 @@ use App\Models\User;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Article>
  */
-class ArticleFactory extends Factory
+class NewListFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,15 +18,9 @@ class ArticleFactory extends Factory
      */
     public function definition()
     {
-        $usersId = User::all()->pluck('id')->toArray();
-
         return [
-            'code' => Str::random(),
-            'name' => $this->faker->words(3, true),
+            'title' => $this->faker->words(3, true),
             'description' => $this->faker->sentence,
-            'detail' => $this->faker->sentence(10),
-            'published' => $this->faker->numberBetween(0,1),
-            'owner_id' => \App\Models\User::find($usersId[rand(0, count($usersId) - 1)])
         ];
     }
 }
