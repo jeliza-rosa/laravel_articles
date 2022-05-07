@@ -20,9 +20,9 @@ class FormRequest extends Model
         ]);
 
         if (request('published')) {
-            $attributes['published'] = true;
+            $attributes['published'] = 1;
         } else {
-            $attributes['published'] = false;
+            $attributes['published'] = 0;
         };
 
         $attributes['owner_id'] = auth()->id();

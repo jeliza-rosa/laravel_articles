@@ -5,7 +5,7 @@
 @if ($tags->isNotEmpty())
     <div>
         @foreach($tags as $tag)
-            <a href="/articles/tags/{{ $tag->getRouteKey() }}" class="btn btn-secondary btn-sm">{{ $tag->name }}</a>
+            <a href="/tags/{{ $tag->getRouteKey() }}" class="btn btn-secondary btn-sm">{{ $tag->name }}</a>
         @endforeach
     </div>
 @endif

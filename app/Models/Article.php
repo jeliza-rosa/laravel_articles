@@ -20,7 +20,7 @@ class Article extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'tag_article');
+        return $this->morphToMany(Tag::class, 'taggables');
     }
 
     public function owner()
@@ -34,17 +34,26 @@ class Article extends Model
             ->withPivot(['text_comment']);
     }
 
-//    public function comment()
-//    {
-//        return $this->belongsToMany(\App\Models\User::class, 'comments');
-//    }
-//
-//    protected static function boot()
-//    {
-//        parent::boot();
-//
+    public function history()
+    {
+        return $this->belongsToMany(User::class, 'post_histories')
+            ->withPivot(['before', 'after']);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
 //        static::updating(function (Article $article) {
 //            $article->comment()->attach(auth()->id());
 //        });
-//    }
+
+        static::updating(function (Article $article) {
+            $after = $article->getDirty();
+            $article->history()->attach(auth()->id(), [
+                'before' => json_encode(Arr::only($article->fresh()->toArray(), array_keys($after))),
+                'after' => json_encode($after),
+            ]);
+        });
+    }
 }

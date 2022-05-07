@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Article;
+use App\Models\NewList;
+use App\Models\Tag;
 
 class TagsTableSeeder extends Seeder
 {
@@ -14,9 +17,10 @@ class TagsTableSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Tag::factory(25)->make()->each(function ($tag) {
+        Tag::factory(25)->make()->each(function ($tag) {
             $tag->save();
-            $tag->articles()->attach(\App\Models\Article::inRandomOrder()->first(), ['tag_id' => $tag->id]);
+            $tag->articles()->attach(Article::inRandomOrder()->first(), ['tag_id' => $tag->id]);
+            $tag->news()->attach(NewList::inRandomOrder()->first(), ['tag_id' => $tag->id]);
             $tag->save();
         });
     }

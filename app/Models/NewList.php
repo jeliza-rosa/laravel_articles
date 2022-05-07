@@ -3,11 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class NewList extends Model
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
 
-    protected $guarded = [];
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggables');
+    }
+
+    public function comment()
+    {
+        return $this->belongsToMany(User::class, 'news_comments')
+            ->withPivot(['text_comment']);
+    }
 }
