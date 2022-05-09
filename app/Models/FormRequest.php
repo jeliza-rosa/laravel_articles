@@ -14,7 +14,7 @@ class FormRequest extends Model
 
         $attributes = request()->validate([
             'code' => 'required|regex:/^[A-Za-z0-9_-]+$/' . $validateUnique,
-            'name' => 'required|min:5|max:100',
+            'name' => 'required|min:3|max:100',
             'description' =>'required|max:255',
             'detail' => 'required',
         ]);

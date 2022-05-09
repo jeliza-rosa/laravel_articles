@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\DB;
 
 class StatisticsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         //все статьи
@@ -28,15 +33,15 @@ class StatisticsController extends Controller
 
         //все статьи с длинной описания
         $allArticles = DB::table('articles')
-            ->select('name','description', 'code')
+            ->select('name','detail', 'code')
             ->get()
             ->toArray();
 
         foreach ($allArticles as $article) {
-            $article->length_description = strlen($article->description);
+            $article->length_detail = strlen($article->detail);
         }
 
-        $allArticles = collect($allArticles)->sortBy('length_description');
+        $allArticles = collect($allArticles)->sortBy('length_detail');
 
         //самая длинная статья
         $longArticle = $allArticles->last();
@@ -59,7 +64,11 @@ class StatisticsController extends Controller
         }
 
         //среднее количсетво статей
-        $averageCountArticles = round($countArticles / count($activeUsers));
+        if (count($activeUsers) != 0) {
+            $averageCountArticles = round($countArticles / count($activeUsers));
+        } else {
+            $averageCountArticles = 'Активных пользователей пока нет';
+        }
 
         //самая изменяемая статья
         $changeArticleId = DB::table('post_histories')
@@ -67,9 +76,13 @@ class StatisticsController extends Controller
             ->selectRaw('count(article_id) as count_articles')
             ->groupby('article_id')
             ->orderByDesc('count_articles')
-            ->first()->article_id;
+            ->first();
 
-        $changeArticle = Article::where('id', '=', $changeArticleId)->first();
+        if ($changeArticleId != null) {
+            $changeArticle = Article::where('id', '=', $changeArticleId->article_id)->first();
+        } else {
+            $changeArticle = 'Статей пока нет или ни одна статья не изменялась';
+        }
 
         //самая обсуждаемая статья
         $commentArticleId = DB::table('comments')
@@ -77,14 +90,18 @@ class StatisticsController extends Controller
             ->selectRaw('count(article_id) as count_articles')
             ->groupby('article_id')
             ->orderByDesc('count_articles')
-            ->first()->article_id;
+            ->first();
 
-        $commentArticle = Article::where('id', '=', $commentArticleId)->first();
+        if ($commentArticleId != null) {
+            $commentArticle = Article::where('id', '=', $commentArticleId->article_id)->first();
+        } else {
+            $commentArticle = 'Статей пока нет или ни одна статья не прокомментирована';
+        }
 
         $data = [
             'articles' => $articles,
             'news' => $news,
-            'user_more_articles' => $userMaxArticles->name,
+            'user_more_articles' => ($userMaxArticles) ? $userMaxArticles->name : 'Нет пользователей или нет статей',
             'long_articles' => $longArticle,
             'short_articles' => $shortArticle,
             'average_articles' => $averageCountArticles,
