@@ -18,3 +18,4 @@ class NewsTableSeeder extends Seeder
         NewList::factory()->count(30)->create();
     }
 }
+

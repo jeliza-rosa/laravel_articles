@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('name');
             $table->text('description');
             $table->text('detail');
-            $table->boolean('published');
+            $table->boolean('published')->default(0);
             $table->timestamps();
 
             $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');

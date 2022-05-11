@@ -26,7 +26,7 @@ class ArticleFactory extends Factory
             'description' => $this->faker->sentence,
             'detail' => $this->faker->sentence(10),
             'published' => $this->faker->numberBetween(0,1),
-            'owner_id' => \App\Models\User::find($usersId[rand(0, count($usersId) - 1)])
+            'owner_id' => User::find($usersId[rand(0, count($usersId) - 1)])
         ];
     }
 }

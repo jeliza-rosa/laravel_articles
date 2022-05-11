@@ -15,11 +15,16 @@ class Tag extends Model
 
     public function articles()
     {
-        return $this->belongsToMany(Article::class, 'tag_article');
+        return $this->morphedByMany(Article::class, 'taggables');
+    }
+
+    public function news()
+    {
+        return $this->morphedByMany(NewList::class, 'taggables');
     }
 
     public static function tagsCloud()
     {
-        return (new static)->has('articles')->get();
+        return (new static)->get();
     }
 }
