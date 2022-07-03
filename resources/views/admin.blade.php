@@ -15,6 +15,12 @@
             </a>
         </h3>
 
+        <h3 class="pb-4 mb-4 fst-italic">
+            <a href="/admin/reports">
+                Отчеты
+            </a>
+        </h3>
+
         @isset($messages)
         <table class="table">
             <thead>

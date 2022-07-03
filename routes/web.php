@@ -8,6 +8,10 @@ Route::get('/about', function () {
     return view('about');
 });
 
+Route::get('/test', function () {
+    \App\Jobs\FinalReport::dispatch();
+});
+
 Route::get('/', 'App\Http\Controllers\ArticlesController@index');
 
 Route::get('/articles/create', 'App\Http\Controllers\ArticlesController@create');
@@ -45,3 +49,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/statistics', 'App\Http\Controllers\StatisticsController@index');
+
+Route::get('/admin/reports', 'App\Http\Controllers\ReportsController@show');
+Route::get('/admin/reports/total', 'App\Http\Controllers\ReportsController@reports');
+Route::post('/admin/reports/total', 'App\Http\Controllers\ReportsController@reportsPost');
