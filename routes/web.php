@@ -53,3 +53,4 @@ Route::get('/statistics', 'App\Http\Controllers\StatisticsController@index');
 Route::get('/admin/reports', 'App\Http\Controllers\ReportsController@show');
 Route::get('/admin/reports/total', 'App\Http\Controllers\ReportsController@reports');
 Route::post('/admin/reports/total', 'App\Http\Controllers\ReportsController@reportsPost');
+Route::post('/admin/reports/send', 'App\Http\Controllers\ReportsController@reportsSend');

@@ -2,23 +2,31 @@
 
 namespace App\Notifications;
 
+use App\Models\Article;
+use App\Models\Comment;
+use App\Models\NewList;
+use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use function Webmozart\Assert\Tests\StaticAnalysis\email;
 
 class Report extends Notification
 {
     use Queueable;
 
+    public $data;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
+//        var_dump($data);
     }
 
     /**
@@ -40,10 +48,27 @@ class Report extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        $result = [];
+        if (!empty($this->data['news'])) {
+            $result[] = 'Новостей: ' . NewList::count() . ' ';
+        }
+        if (!empty($this->data['articles'])) {
+            $result[] = 'Статей: ' . Article::count() . ' ';
+        }
+        if (!empty($this->data['comments'])) {
+            $result[] = 'Комментариев: ' . Comment::count() . ' ';
+        }
+        if (!empty($this->data['tags'])) {
+            $result[] = 'Тегов: ' . Tag::count() . ' ';
+        }
+        if (!empty($this->data['users'])) {
+            $result[] = 'Пользователей: ' . User::count() . ' ';
+        }
+
+        $resultReport = (new MailMessage)
+                    ->line($result);
+
+        return $resultReport;
     }
 
     /**
